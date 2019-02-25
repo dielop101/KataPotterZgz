@@ -14,14 +14,21 @@ namespace PotterLogic.Models
         }
 
         
-        public void ApplyDiscount(double discount)
+        public void ApplyDiscount(DiscountRules discount)
         {
-            _prizeValue = _prizeValue * discount;
+            _prizeValue = _prizeValue * discount.GetDiscount();
         }
 
         public void AddPrizeBook(double prizeValue)
         {
             _prizeValue += prizeValue;
+        }
+
+        public Prize AddPriceBook(Prize priceValue)
+        {
+            _prizeValue += priceValue._prizeValue;
+
+            return this;
         }
 
         public override bool Equals(object prize)
