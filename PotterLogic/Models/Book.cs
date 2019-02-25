@@ -8,7 +8,7 @@ namespace PotterLogic.Models
     {
         private int _idBook;
         private Prize _prizeBook;
-        private double _discount;
+        private DiscountRules _discount;
 
         public int GetIdBook()
         {
@@ -21,16 +21,21 @@ namespace PotterLogic.Models
             return prizeWithDiscount;
         }
 
-        public Book(int idBook, Prize prizeBook, double discount = 1)
+        public Book(int idBook, Prize prizeBook, DiscountRules discount = null)
         {
             _idBook = idBook;
             _prizeBook = prizeBook;
+            _discount = discount == null ? new DiscountRules(1, 1) : discount;
+        }
+
+        public void SetDiscount(DiscountRules discount)
+        {
             _discount = discount;
         }
 
-        internal void SetDiscount(double discount)
+        internal Book Clone()
         {
-            _discount = discount;
+            return new Book(_idBook, _prizeBook, _discount);
         }
     }
 }
